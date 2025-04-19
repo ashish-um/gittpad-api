@@ -18,4 +18,4 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRouter);
 
-app.listen(process.env.PORT, ()=>console.log(`server running on port ${process.env.PORT}`));
+app.listen(process.env.PORT || 8080, ()=>console.log(`server running on port ${process.env.PORT}`));
