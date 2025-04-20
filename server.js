@@ -7,15 +7,17 @@ const app = express();
 app.use(cors());
 
 const uri = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 8080;
+
 
 mongoose.connect(uri).then(()=>{
     console.log("Connected to DB");
 }).catch((err)=>console.log("faliled to connect to DB", err));
 
 app.get('/', (req, res) => {
-    res.send("Hi");
+    res.send("Server Running!!");
 })
 
 app.use('/auth', authRouter);
 
-app.listen(process.env.PORT || 8080, ()=>console.log(`server running on port ${process.env.PORT}`));
+app.listen(PORT, ()=>console.log(`server running on port ${PORT}`));
