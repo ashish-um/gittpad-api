@@ -9,7 +9,6 @@ app.use(cors());
 const uri = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 8080;
 
-
 mongoose.connect(uri).then(()=>{
     console.log("Connected to DB");
 }).catch((err)=>console.log("faliled to connect to DB", err));

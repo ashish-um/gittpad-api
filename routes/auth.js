@@ -9,20 +9,23 @@ router.get('/', async (req, res)=>{
         const data = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${code}`)
         
         const {email, name, picture} = data.data;
-        console.log(`email: ${email}, name: ${name}, image: ${picture}`);
+        const username = email.split('@')[0] + '-' +  String(Math.ceil(Math.random()*9*100000));
         
         let user = await UserModel.findOne({email: email});
+        
         if(!user){
             user = await UserModel.create({
                 name: name,
                 email: email,
+                username: username,
                 image: picture
             })
             console.log("user created successfully");
         }
+
+        console.log(user);
         
         const {_id} = user;
-        
         const token = jwt.sign({_id, email}, process.env.JWT_SECRET);
         
         res.status(200).json({
